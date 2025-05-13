@@ -64,12 +64,12 @@ app.put("/pacientes/:id", authenticate, updatePaciente);
 app.delete("/pacientes/:id", authenticate, deletePaciente);
 
 app.post("/setores", authenticate, createSetor);
-app.get("/setores", authenticate, getAllSetores);
+app.get("/setores", getAllSetores);
 app.get("/setores/:id", authenticate, getSetorById);
 app.put("/setores/:id", authenticate, updateSetor);
 app.delete("/setores/:id", authenticate, deleteSetor);
 
-app.post("/pareceres", authenticate, createParecer);
+app.post("/pareceres", createParecer);
 app.get("/pareceres", authenticate, getAllPareceres);
 app.get("/pareceres/:id", authenticate, getParecerById);
 app.put("/pareceres/:id", authenticate, updateParecer);

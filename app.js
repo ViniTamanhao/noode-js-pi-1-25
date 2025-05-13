@@ -1,7 +1,9 @@
 const express = require("express");
 const env = require("dotenv");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
+// Import controllers and middleware
 const {
   getAllCoordenacao,
   validadeAccess,
@@ -45,8 +47,14 @@ const authenticate = require("./middleware/auth");
 env.config();
 
 const app = express();
+
+// Enable CORS for all origins
+app.use(cors());
+
+// Enable JSON parsing
 app.use(bodyParser.json());
 
+// Routes
 app.post("/register", registerCoordenacao);
 app.post("/login", validadeAccess);
 app.get("/coordenacao", authenticate, getAllCoordenacao);
@@ -69,7 +77,7 @@ app.get("/setores/:id", authenticate, getSetorById);
 app.put("/setores/:id", authenticate, updateSetor);
 app.delete("/setores/:id", authenticate, deleteSetor);
 
-app.post("/pareceres", createParecer);
+app.post("/pareceres", authenticate, createParecer);
 app.get("/pareceres", authenticate, getAllPareceres);
 app.get("/pareceres/:id", authenticate, getParecerById);
 app.put("/pareceres/:id", authenticate, updateParecer);

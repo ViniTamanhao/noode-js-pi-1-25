@@ -49,7 +49,13 @@ env.config();
 const app = express();
 
 // Enable CORS for all origins
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // Enable JSON parsing
 app.use(bodyParser.json());

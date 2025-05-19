@@ -65,14 +65,14 @@ app.post("/register", registerCoordenacao);
 app.post("/login", validadeAccess);
 app.get("/coordenacao", authenticate, getAllCoordenacao);
 
-app.get("/alunos", authenticate, getAllAlunos);
+app.get("/alunos", getAllAlunos);
 app.get("/alunos/:id", authenticate, getAlunoById);
 app.post("/alunos", authenticate, createAluno);
 app.put("/alunos/:id", authenticate, updateAluno);
 app.delete("/alunos/:id", authenticate, deleteAluno);
 
 app.post("/pacientes", authenticate, createPaciente);
-app.get("/pacientes", authenticate, getAllPacientes);
+app.get("/pacientes", getAllPacientes);
 app.get("/pacientes/:id", authenticate, getPacienteById);
 app.put("/pacientes/:id", authenticate, updatePaciente);
 app.delete("/pacientes/:id", authenticate, deletePaciente);

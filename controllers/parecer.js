@@ -73,7 +73,19 @@ const getAllPareceres = async (_, response) => {
 
     if (error) throw error;
 
-    response.json({ data });
+    // Remove ids from the response data
+    const formattedData = data.map((item) => ({
+      aluno_name: item.aluno?.name || null,
+      paciente_name: item.paciente?.name || null,
+      setor_name: item.setor?.name || null,
+      num_port: item.num_port,
+      solicitation_date: item.solicitation_date,
+      answer_date: item.answer_date,
+      enter_date: item.enter_date,
+      leave_date: item.leave_date,
+      obs: item.obs,
+    }));
+    response.json({ data: formattedData });
   } catch (err) {
     console.error("Error fetching Pareceres:", err.message);
     response.status(500).json({ error: err.message });
@@ -113,8 +125,20 @@ const getParecerById = async (request, response) => {
       }
       throw error;
     }
+    // Remove ids from the response data
+    const formattedData = {
+      aluno_name: data.aluno?.name || null,
+      paciente_name: data.paciente?.name || null,
+      setor_name: data.setor?.name || null,
+      num_port: data.num_port,
+      solicitation_date: data.solicitation_date,
+      answer_date: data.answer_date,
+      enter_date: data.enter_date,
+      leave_date: data.leave_date,
+      obs: data.obs,
+    };
 
-    response.json({ data });
+    response.json({ data: formattedData });
   } catch (err) {
     console.error("Error fetching Parecer:", err.message);
     response.status(500).json({ error: err.message });

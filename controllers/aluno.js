@@ -29,13 +29,30 @@ const createAluno = async (request, response) => {
 // Get all Alunos
 const getAllAlunos = async (_, response) => {
   try {
-    const { data, error } = await supabase
+    const { data: alunos, error: alunosError } = await supabase
       .from("aluno")
       .select("id, name, coordenacao_id");
 
-    if (error) throw error;
+    if (alunosError) throw alunosError;
 
-    response.json({ data });
+    const { data: coordenacoes, error: coordenacoesError } = await supabase
+      .from("coordenacao")
+      .select("id, name");
+
+    if (coordenacoesError) throw coordenacoesError;
+
+    // Combine the data
+    const result = alunos.map((aluno) => {
+      const coordenacao = coordenacoes.find(
+        (c) => c.id === aluno.coordenacao_id
+      );
+      return {
+        ...aluno,
+        coordenacao_name: coordenacao ? coordenacao.name : null, // handle the case where coordenacao might not exist
+      };
+    });
+
+    response.json({ data: result });
   } catch (err) {
     console.error("Error fetching Alunos:", err.message);
     response.status(500).json({ error: err.message });
@@ -47,20 +64,33 @@ const getAlunoById = async (request, response) => {
   const { id } = request.params;
 
   try {
-    const { data, error } = await supabase
+    const { data: alunoData, error: alunoError } = await supabase
       .from("aluno")
       .select("id, name, coordenacao_id")
       .eq("id", id)
       .single();
 
-    if (error) {
-      if (error.code === "PGRST116") {
+    if (alunoError) {
+      if (alunoError.code === "PGRST116") {
         return response.status(404).json({ error: "Aluno not found" });
       }
-      throw error;
+      throw alunoError;
     }
 
-    response.json({ data });
+    const { data: coordenacaoData, error: coordenacaoError } = await supabase
+      .from("coordenacao")
+      .select("name")
+      .eq("id", alunoData.coordenacao_id)
+      .single();
+
+    if (coordenacaoError) throw coordenacaoError;
+
+    const result = {
+      ...alunoData,
+      coordenacao_name: coordenacaoData ? coordenacaoData.name : null,
+    };
+
+    response.json({ data: result });
   } catch (err) {
     console.error("Error fetching Aluno:", err.message);
     response.status(500).json({ error: err.message });

@@ -49,16 +49,7 @@ env.config();
 const app = express();
 
 // Enable CORS for all origins
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://vite-pi-1-25-m8vyoyyli-viniciusdiasministeriofis-projects.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors()); // This line allows all origins
 
 // Enable JSON parsing
 app.use(bodyParser.json());

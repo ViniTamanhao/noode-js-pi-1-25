@@ -53,7 +53,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://vite-pi-1-25-m8vyoyyli-viniciusdiasministeriofis-projects.vercel.app/",
+      "https://vite-pi-1-25-m8vyoyyli-viniciusdiasministeriofis-projects.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

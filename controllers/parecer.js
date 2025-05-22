@@ -75,6 +75,7 @@ const getAllPareceres = async (_, response) => {
 
     // Remove ids from the response data
     const formattedData = data.map((item) => ({
+      id: item.id,
       aluno_name: item.aluno?.name || null,
       paciente_name: item.paciente?.name || null,
       setor_name: item.setor?.name || null,
@@ -148,6 +149,8 @@ const getParecerById = async (request, response) => {
 // Update a Parecer
 const updateParecer = async (request, response) => {
   const { id } = request.params;
+  console.log("ID: ", id);
+
   const {
     aluno_id,
     paciente_id,
@@ -187,6 +190,7 @@ const updateParecer = async (request, response) => {
       .eq("id", id)
       .select("*")
       .single();
+    if (error) console.log(error);
 
     if (error) throw error;
 

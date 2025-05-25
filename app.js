@@ -65,7 +65,7 @@ app.post("/alunos", authenticate, createAluno);
 app.put("/alunos/:id", authenticate, updateAluno);
 app.delete("/alunos/:id", authenticate, deleteAluno);
 
-app.post("/pacientes", authenticate, createPaciente);
+app.post("/pacientes", createPaciente);
 app.get("/pacientes", getAllPacientes);
 app.get("/pacientes/:id", authenticate, getPacienteById);
 app.put("/pacientes/:id", authenticate, updatePaciente);

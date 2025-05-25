@@ -60,14 +60,14 @@ app.post("/login", validadeAccess);
 app.get("/coordenacao", authenticate, getAllCoordenacao);
 
 app.get("/alunos", getAllAlunos);
-app.get("/alunos/:id", authenticate, getAlunoById);
+app.get("/alunos/:id", getAlunoById);
 app.post("/alunos", authenticate, createAluno);
 app.put("/alunos/:id", authenticate, updateAluno);
 app.delete("/alunos/:id", authenticate, deleteAluno);
 
 app.post("/pacientes", createPaciente);
 app.get("/pacientes", getAllPacientes);
-app.get("/pacientes/:id", getPacienteById);
+app.get("/pacientes/:id", authenticate, getPacienteById);
 app.put("/pacientes/:id", authenticate, updatePaciente);
 app.delete("/pacientes/:id", authenticate, deletePaciente);
 

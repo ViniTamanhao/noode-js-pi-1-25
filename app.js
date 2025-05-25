@@ -61,7 +61,7 @@ app.get("/coordenacao", authenticate, getAllCoordenacao);
 
 app.get("/alunos", getAllAlunos);
 app.get("/alunos/:id", getAlunoById);
-app.post("/alunos", authenticate, createAluno);
+app.post("/alunos", createAluno);
 app.put("/alunos/:id", authenticate, updateAluno);
 app.delete("/alunos/:id", authenticate, deleteAluno);
 
